@@ -24,9 +24,18 @@ var Matcher = function(){
 			};
 
 			for(var j=0; j< wordList.length; j++){
-				if(checkMatchFromHere(j)){
-					return true;
+				// if(checkMatchFromHere(j)){
+				// 	return true;
+				// }
+				var matchLength = 0;
+				for(var i=0; i< regexComponents.length; i++){
+					var wordIndex = j + i;
+					if(!match(regexComponents[i],wordList[wordIndex])){
+						break;
+					}
+					matchLength++;
 				}
+				if(matchLength == regexComponents.length) return true;
 			}
 			return false;
 		}
