@@ -6,7 +6,7 @@ match = (require "../app/scripts/matcher").match
 describe "Regular Expressions Tester", ->
 	beforeEach ->
 		@sampleStrings = [
-			"This is d0g"
+			"This is d0g b1g"
 		]		
 			
 		@matcher = (ts, samples = @sampleStrings) ->
@@ -19,7 +19,7 @@ describe "Regular Expressions Tester", ->
 						return false
 			return true
 
-	it.skip "matches regex Literals", ->
+	it "matches regex Literals", ->
 		testStrings =[
 				"this"
 				"is"
@@ -28,6 +28,8 @@ describe "Regular Expressions Tester", ->
 				"dg"
 				"s d0"
 				"abc"
+				"g"
+				"0"
 		]
 		expect(@matcher testStrings).to.be.true
 
@@ -39,6 +41,10 @@ describe "Regular Expressions Tester", ->
 			"s[abc]0"
 			"t[ha]i"
 			"T[hi]s"
+			"d0g"
+			"d[0-9]g"
+			"b[0-9]g"
+			"b[5-9]g"
 		]
 		expect(@matcher testStrings).to.be.true
 
