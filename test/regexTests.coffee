@@ -4,23 +4,32 @@ expect = chai.expect
 match = (require "../app/scripts/matcher").match
 
 describe "Regular Expressions Tester", ->
-
-	describe "Literals"
-		beforeEach ->
-			@sampleString = "This is dog"
-			@testStrings =[
-					"this"
-					"is"
-					"s i"
-					"do"
-					"dg"
-					"abc"
-			]
-
-			it "matches regex Literals", ->
-				for item in @testStrings
+	beforeEach ->
+		@sampleStrings = [
+			"This is d0g"
+		]		
+			
+		@matcher = (ts, samples = @sampleStrings) ->
+			for sample in samples
+				for item in ts
 					re = new RegExp item
-					if (match @sampleString, item) != (re.test @sampleString)
+					if (match sample, item) != (re.test sample)
 						console.log "match failed for #{item}"
-					expect(match @sampleString, item).to.be.equal(re.test @sampleString)
+						return false
+			return true
+
+	it "matches regex Literals", ->
+		testStrings =[
+				"this"
+				"is"
+				"s i"
+				"do"
+				"dg"
+				"s d0"
+				"abc"
+		]
+		expect(@matcher testStrings).to.be.true
+
+		
+	it "matches characterClasses", ->
 
