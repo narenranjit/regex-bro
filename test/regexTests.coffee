@@ -32,4 +32,11 @@ describe "Regular Expressions Tester", ->
 
 		
 	it "matches characterClasses", ->
+		testStrings =[
+			"t[abc]i"
+			"s[]0"
+			"s[abc]0"
+			"t[ha]i"
+			"t[hi]s"
+		]
 
