@@ -30,7 +30,6 @@ describe "Regular Expressions Tester", ->
 		]
 		expect(@matcher testStrings).to.be.true
 
-		
 	it "matches characterClasses", ->
 		testStrings =[
 			"t[abc]i"
@@ -38,5 +37,7 @@ describe "Regular Expressions Tester", ->
 			"s[abc]0"
 			"t[ha]i"
 			"t[hi]s"
+			"is d[0-9]g"
 		]
+		expect(@matcher testStrings).to.be.true
 
