@@ -36,8 +36,8 @@ describe "Regular Expressions Tester", ->
 			"s[]0"
 			"s[abc]0"
 			"t[ha]i"
-			"t[hi]s"
 			"is d[0-9]g"
+			"t[hi]s"
 		]
 		expect(@matcher testStrings).to.be.true
 
