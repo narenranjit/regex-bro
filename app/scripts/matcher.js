@@ -1,74 +1,6 @@
-var Range = function(){
-	var charToRange = function(regex){
-		var left = regex.split("-")[0];
-		var right = regex.split("-")[1];
-
-		var range = [];
-		if(!isNaN(+left) && !isNaN(+right)){
-			for(var i=parseInt(left, 10); i<parseInt(right, 10); i++){
-				range.push(i+"");
-			}
-		}
-		return range;
-	};
-
-	return{
-		match: function(charToMatch, regexChar){
-			var possibilities = charToRange(regexChar);
-			for(var i=0; i< possibilities.length; i++){
-				if(charToMatch === possibilities[i]){
-					return true;
-				}
-			}
-			return false;
-		}
-	};
-}();
-
-var CharacterClass = function(){
-	var splitComponents = function(regex){
-		var split = [];
-		var counter = 0;
-		if(regex.indexOf("-") !== -1){
-			var index = regex.indexOf("-");
-
-			var soFar = regex.substring(0,  index-1);
-			if(soFar) split = split.concat(soFar);
-
-			var item = regex.substring(index -1 , index+2);
-			split = split.concat(item);
-			
-			var remaining = regex.substring(index+2, regex.length);
-			split = split.concat(splitComponents(remaining));
-		}
-		else{
-			split = regex.split("");
-		}
-		return split;
-	};
-
-	return{
-		has: function(regex){
-
-		},
-		match: function(charToMatch, regexChar){
-			var splitOut = splitComponents(regexChar.substring(1, regexChar.length-1));
-			for(var i=0; i< splitOut.length; i++){
-
-				var isRange = splitOut[i].length > 1 && splitOut[i].charAt(1) === "-";
-				if(isRange){
-					return Range.match(charToMatch, splitOut[i]);
-				}
-				else if(charToMatch == splitOut[i]){
-					return true;
-				}
-			}
-			return false;
-		}
-	};
-}();
-
 var Matcher = function(){
+	var CharacterClass = require('../../app/scripts/CharacterClass').CharacterClass;
+
 	var splitComponents = function(regex){
 		var split = [];		//console.log("split", split, regex);
 		
@@ -97,8 +29,10 @@ var Matcher = function(){
 		}
 		return false;
 	};
+
+		
 	return{
-		init: function(word, regex){ // console.log("Evaluating", word, regex);
+		match: function(word, regex){ // console.log("Evaluating", word, regex);
 			var regexComponents = splitComponents(regex); //console.log("split = ", regexComponents);
 			var wordList  = word.split("");
 
@@ -123,4 +57,4 @@ var Matcher = function(){
 	};
 }();
 
-exports.match = Matcher.init;
+exports.Matcher = Matcher;
