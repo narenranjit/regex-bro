@@ -22,6 +22,13 @@ describe "Range Tester", ->
 		it "does nt work if min > max", ->
 			#expect(@cTor "5-4").to.throw("left indice should be > right")
 
-		it "converts alpha ranges", ->
+		it "converts alpha ranges - lowerCase", ->
 			expect(@cTor "a-f").to.eql ["a", "b", "c","d", "e", "f"]
 			expect(@cTor "f-f").to.eql ["f"]
+
+		it "converts alpha ranges - upperCase", ->
+			expect(@cTor "A-F").to.eql ["A", "B", "C","D", "E", "F"]
+			expect(@cTor "F-F").to.eql ["F"]
+
+		it "doest noT work for mixed case alpha", ->
+			#expect(@cTor "a-Z").to.throw "ssfsd"

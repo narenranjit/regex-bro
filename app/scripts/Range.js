@@ -15,7 +15,8 @@ var Range = function(){
 			}
 		}
 		else{
-			range = ALPHABETS.substring(ALPHABETS.indexOf(left), ALPHABETS.indexOf(right)+1).split("");
+			var alphaChoice = (left === left.toLowerCase()) ? ALPHABETS : ALPHABETS.toUpperCase();
+			range = alphaChoice.substring(alphaChoice.indexOf(left), alphaChoice.indexOf(right)+1).split("");
 		}
 		return range;
 	};
