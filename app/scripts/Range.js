@@ -28,7 +28,7 @@ var Range = function(){
 		match: function(charToMatch, regexChar){
 			var possibilities = charToRange(regexChar);
 			for(var i=0; i< possibilities.length; i++){
-				if(charToMatch === possibilities[i]){
+				if(charToMatch+"" === possibilities[i]){
 					return true;
 				}
 			}

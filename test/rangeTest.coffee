@@ -4,11 +4,6 @@ expect = chai.expect
 Range = (require "../app/scripts/Range").Range
 
 describe "Range Tester", ->
-	beforeEach ->
-		@sampleStrings = [
-			"This is d0g b1g"
-		]	
-
 	describe "converts chars to ranges", ->
 		beforeEach ->
 			@cTor = Range._private.charToRange
@@ -32,3 +27,16 @@ describe "Range Tester", ->
 
 		it "doest noT work for mixed case alpha", ->
 			#expect(@cTor "a-Z").to.throw "ssfsd"
+
+	it "matches expressions", ->
+		match = Range.match
+		testList = 
+			"0-4": 
+				"y": ["0","4", "3", 4]
+				"n": ["5",5,"a","b"]
+			"g-j":
+				"y": ["g", "j", "i"]
+				"n": ["a", "z", 0, "1", "G", "J"]
+			"K-O":
+				"y": ["K", "O"]
+				"n": ["k", 2, 1]
