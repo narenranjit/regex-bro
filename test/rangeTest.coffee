@@ -1,6 +1,4 @@
-chai = require "chai"
-expect = chai.expect
-
+expect = (require "chai").expect
 Range = (require "../app/scripts/Range").Range
 
 describe "Range Tester", ->
@@ -40,3 +38,9 @@ describe "Range Tester", ->
 			"K-O":
 				"y": ["K", "O"]
 				"n": ["k", 2, 1]
+
+		for expression, validInputs of testList
+			for input in validInputs.y
+				expect(match input,expression).to.be.true
+			for input in validInputs.n
+				expect(match input,expression).to.be.false

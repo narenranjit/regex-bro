@@ -8,7 +8,7 @@ var CharacterClass = function(){
 			var index = regex.indexOf("-");
 
 			var soFar = regex.substring(0,  index-1);
-			if(soFar) split = split.concat(soFar);
+			if(soFar) split = splitComponents(soFar);
 
 			var item = regex.substring(index -1 , index+2);
 			split = split.concat(item);
@@ -23,6 +23,9 @@ var CharacterClass = function(){
 	};
 
 	return{
+		_privates: {
+			splitComponents: splitComponents
+		},
 		has: function(regex){
 
 		},
