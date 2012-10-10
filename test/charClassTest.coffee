@@ -2,9 +2,6 @@ expect = (require "chai").expect
 Char = (require "../app/scripts/CharacterClass").CharacterClass
 
 describe "Char Tester", ->
-	beforeEach ->
-		@sampleString = "This iS d0g."
-
 	describe "splits into components", ->
 		beforeEach ->
 			@split = Char._privates.splitComponents
@@ -35,9 +32,25 @@ describe "Char Tester", ->
 			expect(@split "asd0a-z0-5").to.eql ["a","s","d","0","a-z","0-5"]
 			expect(@split "ab0-312g-z0-5a").to.eql ["a","b","0-3","1","2","g-z","0-5","a"]
 
-	it "matches 'any' charcters", ->
+	beforeEach ->
 		match = Char.match
-		testList =
+		@x = "sdfds"
+		@testList = (list) ->
+			for testString, expressions of list
+				for exp in expressions.y
+					result = match testString,exp
+					if !result
+						console.log "#{exp} did not match for #{testString}"
+					expect(result).to.be.true
+
+				for exp in expressions.n
+					result = match testString,exp
+					if result
+						console.log "#{exp} did not match for #{testString}"
+					expect(result).to.be.false
+
+	it "matches 'any' charcters", ->
+		list =
 			"h":
 				"y": [ "[h]", "[g-h]", "[h-i]", "[f-z]"]
 				"n": ["[a]", "[1]", "[H]", "[G-H]", "[H-I]"]
@@ -46,24 +59,15 @@ describe "Char Tester", ->
 				"n": ["[3]", "[0-5]", "[a]", "[a-z]"]
 			"G":
 				"y": ["[G]", "[A-Z]", "[G-H]", "[A-G]"]
-				"n": ["[g]"]
+				"n": ["[g_]"]
+		@testList list
+		
 
-		for testString, expressions of testList
-			for exp in expressions.y
-				result = match testString,exp
-				if !result
-					console.log "#{exp} did not match for #{testString}"
-				expect(result).to.be.true
-
-			for exp in expressions.n
-				result = match testString,exp
-				if result
-					console.log "#{exp} did not match for #{testString}"
-				expect(result).to.be.false
+	it "matches shorthand ranges", ->
+		match = Char.match
 
 	it "works with negations", ->
-		match = Char.match
-		testList =
+		list =
 			"h":
 				"y": ["[^a]", "[^a-g]"]
 				"n": ["[^h]", "[^a-h]"]
@@ -71,16 +75,4 @@ describe "Char Tester", ->
 				"y": ["[^a]", "[^a-z]"]
 				"n": ["[^0]", "[^0-9]"]
 
-		for testString, expressions of testList
-			for exp in expressions.y
-				result = match testString,exp
-				if !result
-					console.log "#{exp} did not match for #{testString}"
-				expect(result).to.be.true
-
-			for exp in expressions.n
-				result = match testString,exp
-				if result
-					console.log "#{exp} did not match for #{testString}"
-				expect(result).to.be.false
-
+		@testList list
