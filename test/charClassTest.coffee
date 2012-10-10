@@ -1,5 +1,6 @@
 expect = (require "chai").expect
-Char = (require "../app/scripts/CharacterClass").CharacterClass
+# Char = (require "../app/scripts/CharacterClass").CharacterClass
+Char = (require "../app/scripts/CharClass.coffee").CharacterClass
 
 describe "Char Tester", ->
 	describe "splits into components", ->

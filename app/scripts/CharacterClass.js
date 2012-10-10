@@ -14,7 +14,7 @@ var CharacterClass = function(){
 		var hasRange = regex.indexOf("-") !== -1;
 		var hasShortCut = regex.indexOf('\\[dws]') !== -1;
 
-		for(shortcut in RANGE_SHORTCUTS){
+		for(var shortcut in RANGE_SHORTCUTS){
 			//regex.replace(/\\/g)
 		}
 

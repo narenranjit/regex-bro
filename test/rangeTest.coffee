@@ -1,5 +1,6 @@
 expect = (require "chai").expect
-Range = (require "../app/scripts/Range").Range
+# Range = (require "../app/scripts/Range").Range
+Range = (require "../app/scripts/Range.coffee").Range
 
 describe "Range Tester", ->
 	describe "converts chars to ranges", ->
