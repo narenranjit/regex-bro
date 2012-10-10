@@ -44,6 +44,7 @@ var CharacterClass = function(){
 		},
 		match: function(charToMatch, regexChar){
 			var splitOut = splitComponents(regexChar.substring(1, regexChar.length-1));
+			var DOT = ".";
 
 			var negation = false;
 			if(splitOut[0] === "^"){
@@ -58,7 +59,7 @@ var CharacterClass = function(){
 						return !negation;
 					}
 				}
-				else if(charToMatch == splitOut[i]){
+				else if(charToMatch == splitOut[i] || splitOut[i] === DOT){
 					return !negation;
 				}
 			}

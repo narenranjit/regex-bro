@@ -39,6 +39,11 @@ describe "Regular Expressions Tester", ->
 			"T[h0]i"
 			"s[]0"
 			"s[abc]0"
+
+			##Dot
+			"th...s"
+			"ths"
+
 			"t[ha]i"
 			"T[hi]s"
 			"d0g"

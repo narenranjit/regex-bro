@@ -51,15 +51,21 @@ describe "Char Tester", ->
 
 	it "matches 'any' charcters", ->
 		list =
+			##Lower-case alphabets
 			"h":
-				"y": [ "[h]", "[g-h]", "[h-i]", "[f-z]"]
+				"y": [ "[h]", "[g-h]", "[h-i]", "[f-z]", "."]
 				"n": ["[a]", "[1]", "[H]", "[G-H]", "[H-I]"]
+
+			##Numbers
 			"6":
 				"y": ["[1-6]", "[6-9]","[6]"]
 				"n": ["[3]", "[0-5]", "[a]", "[a-z]"]
+
+			##Upper case
 			"G":
 				"y": ["[G]", "[A-Z]", "[G-H]", "[A-G]"]
 				"n": ["[g_]"]
+
 		@testList list
 		
 
@@ -70,7 +76,7 @@ describe "Char Tester", ->
 		list =
 			"h":
 				"y": ["[^a]", "[^a-g]"]
-				"n": ["[^h]", "[^a-h]"]
+				"n": ["[^h]", "[^a-h]", "[^.]"]
 			"0":
 				"y": ["[^a]", "[^a-z]"]
 				"n": ["[^0]", "[^0-9]"]
