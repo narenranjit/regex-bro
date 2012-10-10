@@ -15,10 +15,16 @@ Range = ->
     
     range
 
+  ##Public
   _private:
     charToRange: charToRange
 
-  ##Public
+  is: (item)->
+    item.length > 1 and item.charAt(1) is "-"
+
+  extract: (regex)->
+    regex.substring 0,3
+
   match: (charToMatch, regexChar) ->
     possibilities = charToRange(regexChar)
     return true for possibility in possibilities when possibility is "#{charToMatch}" 

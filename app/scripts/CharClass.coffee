@@ -1,29 +1,20 @@
 CharacterClass = ->
-  Range = require("../../app/scripts/Range").Range
+  Range = require("../../app/scripts/Range.coffee").Range
+
+  checkList = [Range]
 
   splitComponents = (regex) ->
-    RANGE_SHORTCUTS =
-      d: "0-9"
-      w: "A-Za-z0-9_"
-      s: " "
-    hasShortCut = regex.indexOf("\\[dws]") isnt -1
-
     split = []
-    counter = 0
-    hasRange = regex.indexOf("-") isnt -1
-
-    
-    #regex.replace(/\\/g)
-    if hasRange
-      index = regex.indexOf("-")
-
-      [soFar, item, remaining] = [regex.substring(0, index - 1),  regex.substring(index - 1, index + 2), regex.substring(index + 2, regex.length)]
-     
-      split = split.concat splitComponents(soFar)
-      split = split.concat(item)
-      split = split.concat(splitComponents(remaining))
+    if Range.is regex
+      item = Range.extract(regex)
     else
-      split = regex.split("")
+      item = regex.charAt 0
+
+    (split = split.concat item) if item
+
+    remaining = regex.substring item.length
+    (split = split.concat splitComponents(remaining)) if remaining
+
     split
 
   _privates:
@@ -36,16 +27,17 @@ CharacterClass = ->
     DOT = "."
 
     negation = splitOut[0] is "^"
+    match = !negation
     if negation
       splitOut.shift()
 
     for item in splitOut
-      isRange = item.length > 1 and item.charAt(1) is "-"
-      if isRange
-        return not negation  if Range.match(charToMatch, item)
-      else return not negation if charToMatch is item or item is DOT
+      if Range.is item
+        return match if Range.match(charToMatch, item)
+      else 
+        return match if charToMatch is item or item is DOT
     
     #No Matches found
-    negation
+    !match
 
 exports.CharacterClass = CharacterClass()
