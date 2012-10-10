@@ -2,9 +2,22 @@ var CharacterClass = function(){
 	var Range = require('../../app/scripts/Range').Range;
 	
 	var splitComponents = function(regex){
+		var RANGE_SHORTCUTS = {
+			"d" : "0-9",
+			"w" : "A-Za-z0-9_",
+			"s" : " "
+		}
+
 		var split = [];
 		var counter = 0;
-		if(regex.indexOf("-") !== -1){
+
+		var hasRange = regex.indexOf("-") !== -1;
+		var hasSpecialCharacter = regex.indexOf('\\') !== -1;
+
+		if(hasSpecialCharacter){
+			
+		}
+		if(hasRange){
 			var index = regex.indexOf("-");
 
 			var soFar = regex.substring(0,  index-1);
@@ -31,17 +44,24 @@ var CharacterClass = function(){
 		},
 		match: function(charToMatch, regexChar){
 			var splitOut = splitComponents(regexChar.substring(1, regexChar.length-1));
-			for(var i=0; i< splitOut.length; i++){
 
+			var negation = false;
+			if(splitOut[0] === "^"){
+				negation = true;
+				splitOut.shift();
+			}
+
+			for(var i=0; i< splitOut.length; i++){
 				var isRange = splitOut[i].length > 1 && splitOut[i].charAt(1) === "-";
 				if(isRange){
-					return Range.match(charToMatch, splitOut[i]);
+					return (negation && !Range.match(charToMatch, splitOut[i]));
 				}
 				else if(charToMatch == splitOut[i]){
-					return true;
+					return !negation;
 				}
 			}
-			return false;
+			//No Matches found
+			return negation;
 		}
 	};
 }();

@@ -32,6 +32,10 @@ var Matcher = function(){
 
 		
 	return{
+		_privates:{
+			matchChar: match,
+			splitComponents: splitComponents
+		},
 		match: function(word, regex){ // console.log("Evaluating", word, regex);
 			var regexComponents = splitComponents(regex); //console.log("split = ", regexComponents);
 			var wordList  = word.split("");

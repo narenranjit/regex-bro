@@ -60,3 +60,27 @@ describe "Char Tester", ->
 				if result
 					console.log "#{exp} did not match for #{testString}"
 				expect(result).to.be.false
+
+	it.only "works with negations", ->
+		match = Char.match
+		testList =
+			"h":
+				"y": ["[^a]", "[^a-g]"]
+				"n": ["[^h]", "[^a-h]"]
+			"0":
+				"y": ["[^a]", "[^a-z]"]
+				"n": ["[^0]", "[^0-9]"]
+
+		for testString, expressions of testList
+			for exp in expressions.y
+				result = match testString,exp
+				if !result
+					console.log "#{exp} did not match for #{testString}"
+				expect(result).to.be.true
+
+			for exp in expressions.n
+				result = match testString,exp
+				if result
+					console.log "#{exp} did not match for #{testString}"
+				expect(result).to.be.false
+
