@@ -61,7 +61,7 @@ describe "Char Tester", ->
 					console.log "#{exp} did not match for #{testString}"
 				expect(result).to.be.false
 
-	it.only "works with negations", ->
+	it "works with negations", ->
 		match = Char.match
 		testList =
 			"h":

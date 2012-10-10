@@ -54,7 +54,9 @@ var CharacterClass = function(){
 			for(var i=0; i< splitOut.length; i++){
 				var isRange = splitOut[i].length > 1 && splitOut[i].charAt(1) === "-";
 				if(isRange){
-					return (negation && !Range.match(charToMatch, splitOut[i]));
+					if(Range.match(charToMatch, splitOut[i]) ){
+						return !negation;
+					}
 				}
 				else if(charToMatch == splitOut[i]){
 					return !negation;
