@@ -1,5 +1,6 @@
 CharacterClass = ->
   Range = require("../../app/scripts/Range.coffee").Range
+  Literal = require("../../app/scripts/Literal.coffee").Literal
 
   checkList = [Range]
 
@@ -8,7 +9,7 @@ CharacterClass = ->
     if Range.is regex
       item = Range.extract(regex)
     else
-      item = regex.charAt 0
+      item = Literal.extract regex
 
     (split = split.concat item) if item
 
