@@ -12,11 +12,13 @@ var CharacterClass = function(){
 		var counter = 0;
 
 		var hasRange = regex.indexOf("-") !== -1;
-		var hasSpecialCharacter = regex.indexOf('\\') !== -1;
+		var hasShortCut = regex.indexOf('\\[dws]') !== -1;
 
-		if(hasSpecialCharacter){
-			
+		for(shortcut in RANGE_SHORTCUTS){
+			//regex.replace(/\\/g)
 		}
+
+
 		if(hasRange){
 			var index = regex.indexOf("-");
 

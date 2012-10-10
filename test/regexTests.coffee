@@ -5,6 +5,8 @@ match = (require "../app/scripts/matcher").Matcher.match
 
 describe "Regular Expressions Tester", ->
 	beforeEach ->
+		console.log exports
+		
 		@sampleStrings = [
 			"This is d0g b1g"
 		]		

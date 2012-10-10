@@ -67,7 +67,6 @@ describe "Char Tester", ->
 				"n": ["[g_]"]
 
 		@testList list
-		
 
 	it "matches shorthand ranges", ->
 		match = Char.match
