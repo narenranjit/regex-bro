@@ -1,7 +1,7 @@
 chai = require "chai"
 expect = chai.expect
 
-match = (require "../app/scripts/matcher").Matcher.match
+match = (require "../app/scripts/Matcher.coffee").Matcher.match
 
 describe "Regular Expressions Tester", ->
 	beforeEach ->

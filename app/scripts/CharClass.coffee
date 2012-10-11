@@ -11,21 +11,26 @@ CharacterClass = ->
     else
       item = Literal.extract regex
 
-    (split = split.concat item) if item
+    if item
+      split = split.concat item
+      regex = regex.substring item.length
 
-    remaining = regex.substring item.length
-    (split = split.concat splitComponents(remaining)) if remaining
+    (split = split.concat splitComponents(regex)) if regex
 
     split
 
+  ##public
   _privates:
     splitComponents: splitComponents
 
-  has: (regex) ->
+  is: (regex) ->
+    regex.charAt(0) is "["
+
+  extract: (regex) ->
+    regex.substring(0, regex.indexOf("]")+1)
 
   match: (charToMatch, regexChar) ->
     splitOut = splitComponents(regexChar.substring(1, regexChar.length - 1))
-    DOT = "."
 
     negation = splitOut[0] is "^"
     match = !negation
@@ -36,7 +41,7 @@ CharacterClass = ->
       if Range.is item
         return match if Range.match(charToMatch, item)
       else 
-        return match if charToMatch is item or item is DOT
+        return match if Literal.match(charToMatch, item)
     
     #No Matches found
     !match

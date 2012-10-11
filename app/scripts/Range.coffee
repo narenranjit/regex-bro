@@ -1,6 +1,6 @@
 Range = ->
   ##Privates
-  charToRange = (regex) ->
+  split = (regex) ->
     ALPHABETS = "abcdefghijklmnopqrstuvwxyz"
     [left, right] = regex.split("-")
     range = []
@@ -17,7 +17,7 @@ Range = ->
 
   ##Public
   _private:
-    charToRange: charToRange
+    charToRange: split
 
   is: (item)->
     item.length > 1 and item.charAt(1) is "-"
@@ -26,7 +26,7 @@ Range = ->
     regex.substring 0,3
 
   match: (charToMatch, regexChar) ->
-    possibilities = charToRange(regexChar)
+    possibilities = split(regexChar)
     return true for possibility in possibilities when possibility is "#{charToMatch}" 
     return false
 
