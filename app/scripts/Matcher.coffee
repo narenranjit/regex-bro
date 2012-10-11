@@ -20,10 +20,10 @@ Matcher = ->
     split
 
   match = (charToMatch, regexChar) ->
-    if Literal.is regexChar
-      return Literal.match charToMatch,regexChar
-    else if CharacterClass.is regexChar
+    if CharacterClass.is regexChar
       return CharacterClass.match(charToMatch, regexChar)  
+    else if Literal.is regexChar
+      return Literal.match charToMatch,regexChar
     false
 
   _privates:
@@ -34,6 +34,7 @@ Matcher = ->
     regexComponents = splitComponents(regex)
     wordList = word.split("")
     checkMatchFromHere = (startIndex) ->
+      matchFound = true
       for component,index in regexComponents
         wordIndex = startIndex + index
         return false  if not wordList[wordIndex] or not match(wordList[wordIndex], component)
